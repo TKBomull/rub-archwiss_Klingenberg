@@ -1,0 +1,36 @@
+---
+title: "Tasks Session 3"
+author: "Tim Klingenberg"
+date: "2024-11-15"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+# Create vectors for each column
+inventory_number <- c("LN15", "LN17", "LN18", "LN21", "LN23", "LN24")
+blength <- c(18, 14, 21, 14, 17, 16)
+bbreadth <- c(9, 7, 10, 7, 8, 8)
+thickness <- c(3, 2, 3, 3, 3, 2)
+material_type <- c("chert", "chert", "obsidian", "chert", "obsidian", "obsidian")
+material_provenance <- c("local", "local", "local", "non-local", "local", "non-local")
+
+# Combine vectors into a data frame
+stone_tools_data <- data.frame(
+  Inventory_Number = inventory_number,
+  bLength = length,
+  bBreadth = breadth,
+  Thickness = thickness,
+  Material_Type = material_type,
+  Material_Provenance = material_provenance
+)
+
+# Display the data frame
+knitr::kable(stone_tools_data)
+
+# Print the data frame
+print(stone_tools_data)
+```
