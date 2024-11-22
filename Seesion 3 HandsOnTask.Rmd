@@ -10,27 +10,42 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r}
-# Create vectors for each column
-inventory_number <- c("LN15", "LN17", "LN18", "LN21", "LN23", "LN24")
-blength <- c(18, 14, 21, 14, 17, 16)
-bbreadth <- c(9, 7, 10, 7, 8, 8)
-thickness <- c(3, 2, 3, 3, 3, 2)
-material_type <- c("chert", "chert", "obsidian", "chert", "obsidian", "obsidian")
-material_provenance <- c("local", "local", "local", "non-local", "local", "non-local")
-
-# Combine vectors into a data frame
+# Combining the vectors into a data frame
 stone_tools_data <- data.frame(
-  Inventory_Number = inventory_number,
-  bLength = length,
-  bBreadth = breadth,
-  Thickness = thickness,
-  Material_Type = material_type,
-  Material_Provenance = material_provenance
+  inventory_number = c("LN15", "LN17", "LN18", "LN21", "LN23", "LN24"),
+  blength = c(18, 14, 21, 14, 17, 16),
+  breadth = c(9, 7, 10, 7, 8, 8),
+  thickness = c(3, 2, 3, 3, 3, 2),
+  material_type = c("chert", "chert", "obsidian", "chert", "obsidian", "obsidian"),
+  material_provenance = c("local", "local", "local", "non-local", "local", "non-local")
 )
 
 # Display the data frame
 knitr::kable(stone_tools_data)
+```
+```{r}
+# Creating a csv-file
+write.csv(stone_tools_data, "data/stone_tools_data.csv")
+```
 
-# Print the data frame
-print(stone_tools_data)
+```{r}
+# Reading/opening a csv-file
+stone_tools_data2 <- read.csv("data/stone_tools_data.csv")[,-1]
+```
+```{r}
+stone_tools_data$types_and_provenance <- paste(stone_tools_data$material_type,
+                                               stone_tools_data$material_provenance,
+                                               sep = " and ")
+```
+
+```{r}
+stone_tools_data_table <- table(stone_tools_data$material_type)
+
+png("plots/session3_barplot_material_type.png")
+
+barplot(stone_tools_data_table,
+        main ="Bar Plot of Count of artifacts by material type",
+        xlab = "Material Type")
+
+dev.off()
 ```
