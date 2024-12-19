@@ -155,11 +155,84 @@ In summary, databases are essential tools in archaeology for managing and analyz
 ## Introduction to SQL (Structured Query Language)
 
 * **Basic SQL Commands**  
-  * Overview of SQL syntax and common commands (e.g., `CREATE`, `INSERT`, `SELECT`, `UPDATE`).  
-  * Example: Creating tables for archaeological data and inserting records.  
+  * * Overview of SQL Syntax and Common Commands:
+
+    1) `CREATE`: Used to create a new table or database.
+        Syntax: "CREATE TABLE table_name (column1 datatype, column2 datatype, ...);"
+    2) `INSERT`: Used to insert new records into a table.
+        Syntax: "INSERT INTO table_name (column1, column2, ...) VALUES (value1, value2, ...);"
+    3) `SELECT`: Used to retrieve data from a table.
+        Syntax: "SELECT column1, column2, ... FROM table_name;"
+    4) `UPDATE`: Used to modify existing records in a table.
+        Syntax: "UPDATE table_name SET column1 = value1, column2 = value2, ... WHERE condition;"
+    5) `DELETE`: Used to delete records from a table.
+        Syntax: "DELETE FROM table_name WHERE condition;"
+
+  * *Example: Creating tables for archaeological data and inserting records.*
+
+    1) Creating a Table for Sites:  
+      `CREATE TABLE` Sites (
+      SiteID `INT` `PRIMARY KEY`,
+      SiteName `VARCHAR`(`100`),
+      Location `VARCHAR`(`100`),
+      ExcavationDate `DATE`
+      );
+    2) Inserting Records into the Sites Table:
+      `INSERT INTO` Sites (SiteID, SiteName, Location, ExcavationDate)
+      `VALUES` (1, 'Site A', 'Location A', '2023-01-01');
+.  
 * **Creating a Database with SQL**  
-  * Step-by-step process of building an archaeological database using SQL.  
-  * Example: Creating an artifact catalogue with fields such as artifact ID, type, material, and context.  
+  1) Create the Database:
+
+    `CREATE DATABASE` ArchaeologyDB;
+
+  2) Use the Database:
+
+    `USE` ArchaeologyDB;
+
+  3) Create different Tables:
+
+    a) *Artifact Table*
+
+        `CREATE TABLE` Artifacts (
+          ArtifactID `INT` `PRIMARY KEY`,
+          ArtifactType `VARCHAR`(`50`),
+          Material `VARCHAR`(`50`),
+          Context `VARCHAR`(`100`)
+      );
+
+    b) *Sites Table*
+
+        `CREATE TABLE` Sites (
+          SiteID `INT` `PRIMARY KEY`,
+          SiteName `VARCHAR`(`100`),
+          Location `VARCHAR`(`100`),
+          ExcavationDate `DATE`
+      );
+
+
+  4) Insert Records:
+
+    a) *Insert into Artifacts Table:*
+      `INSERT INTO` Artifacts (
+        ArtifactID, 
+        ArtifactType,
+        Material, Context)
+      `VALUES` (1, 'Pottery', 'Clay', 'Layer 1');
+
+    b) *Insert in Sites Table:*
+
+       `INSERT INTO` Sites (SiteID, SiteName, Location, ExcavationDate)
+       `VALUES` (1, 'Site A', 'Location A', '2023-01-01'); 
+* **Indexing and Keys**  
+  * Explanation of Primary Keys, Foreign Keys, and Indexing for Optimizing Database Performance:
+
+    1) Primary Keys: A primary key is a unique identifier for each record in a table. It ensures that each record can be uniquely identified.
+        * Example: cArtifactID in the Artifacts table.
+    2) Foreign Keys: A foreign key is a field in one table that links to the primary key in another table. It establishes a relationship between the two tables.
+        * Example: SiteID in the Artifacts table linking to SiteID in the Sites table.
+    3) Indexing: Indexes are used to speed up the retrieval of data. They create a data structure that allows for faster searches.
+        * Example: Creating an index on the ArtifactType field in the Artifacts table. 
 * **Indexing and Keys**  
   * Explanation of primary keys, foreign keys, and indexing for optimizing database performance.  
   * Example: Defining keys to link excavation sites to finds in different tables.  
