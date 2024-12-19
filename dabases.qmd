@@ -228,23 +228,93 @@ In summary, databases are essential tools in archaeology for managing and analyz
   * Explanation of Primary Keys, Foreign Keys, and Indexing for Optimizing Database Performance:
 
     1) Primary Keys: A primary key is a unique identifier for each record in a table. It ensures that each record can be uniquely identified.
-        * Example: cArtifactID in the Artifacts table.
+        * Example: ArtifactID in the Artifacts table.
     2) Foreign Keys: A foreign key is a field in one table that links to the primary key in another table. It establishes a relationship between the two tables.
         * Example: SiteID in the Artifacts table linking to SiteID in the Sites table.
     3) Indexing: Indexes are used to speed up the retrieval of data. They create a data structure that allows for faster searches.
         * Example: Creating an index on the ArtifactType field in the Artifacts table. 
-* **Indexing and Keys**  
-  * Explanation of primary keys, foreign keys, and indexing for optimizing database performance.  
-  * Example: Defining keys to link excavation sites to finds in different tables.  
+ 
+  * **Defining keys to link excavation sites to finds in different tables:**
+    1) Creating Foreign Key Relationship:
+        `ALTER TABLE` Artifacts
+        `ADD` SiteID `INT`m
+        `ADD CONSTRAINT` FK_Site,
+        `FOREIGN` Key (SiteID) `REFERENCES` Sites(SiteID);
+    2) Creating an Index:
+        `CREATE` Index idx_ArtifactType
+        `ON` Artifacts (ArtifactType);
+        
+        
 * **Basic Querying with SQL**  
-  * Writing basic queries to retrieve data from a database.  
-  * Example: Using `SELECT` statements to extract information about finds or excavation layers.  
-* **Filtering and Sorting Data**  
-  * Using `WHERE`, `ORDER BY`, and `GROUP BY` clauses to filter and sort data.  
-  * Example: Querying artifacts by material type or sorting excavation records by date.  
-* **Joining Tables**  
-  * Using `JOIN` statements to combine related tables (e.g., linking artifact data with stratigraphy).  
-  * Example: Writing queries to retrieve artifacts based on their excavation context.
+  
+    **Writing Basic Queries to Retrieve Data from a Database:**
+    1. **Select All Records**:
+        ```sql
+        SELECT * FROM Artifacts
+        ```
+    2. **Select Specific Columns**:
+        ```sql
+        SELECT ArtifactID, ArtifactType, Material FROM Artifacts
+        ```
+    
+    **Example: Using SELECT Statements to Extract Information About Finds or Excavation Layers:**
+    1. **Retrieve All Artifacts**:
+        ```sql
+        SELECT * FROM Artifacts
+        ```
+    2. **Retrieve Artifacts of a Specific Type**:
+        ```sql
+        SELECT ArtifactID, ArtifactType, Material
+        FROM Artifacts
+        WHERE ArtifactType = 'Pottery'
+        ```
+
+**Filtering and Sorting Data**
+
+**Using WHERE, ORDER BY, and GROUP BY Clauses to Filter and Sort Data:**
+1. **WHERE Clause**: Used to filter records based on a condition.
+    - Example: `SELECT * FROM Artifacts WHERE Material = 'Clay'
+2. **ORDER BY Clause**: Used to sort the result set by one or more columns.
+    - Example: `SELECT * FROM Artifacts ORDER BY DateOfDiscovery DESC
+3. **GROUP BY Clause**: Used to group records that have the same values in specified columns.
+    - Example: `SELECT Material, COUNT(*) FROM Artifacts GROUP BY Material
+
+**Example: Querying Artifacts by Material Type or Sorting Excavation Records by Date:**
+1. **Filter Artifacts by Material Type**:
+    ```sql
+    SELECT * FROM Artifacts
+    WHERE Material = 'Clay'
+    ```
+2. **Sort Excavation Records by Date**:
+    ```sql
+    SELECT * FROM Sites
+    ORDER BY ExcavationDate DESC
+    ```
+
+**Joining Tables**
+
+**Using JOIN Statements to Combine Related Tables:**
+1. **INNER JOIN**: Combines records from two tables where there is a match in both tables.
+    - Syntax: `SELECT columns FROM table1 INNER JOIN table2 ON table1.column = table2.column
+2. **LEFT JOIN**: Returns all records from the left table and matched records from the right table.
+    - Syntax: `SELECT columns FROM table1 LEFT JOIN table2 ON table1.column = table2.column
+3. **RIGHT JOIN**: Returns all records from the right table and matched records from the left table.
+    - Syntax: `SELECT columns FROM table1 RIGHT JOIN table2 ON table1.column = table2.column
+
+**Example: Writing Queries to Retrieve Artifacts Based on Their Excavation Context:**
+1. **Join Artifacts with Sites**:
+    ```sql
+    SELECT Artifacts.ArtifactID, Artifacts.ArtifactType, Sites.SiteName, Sites.Location
+    FROM Artifacts
+    INNER JOIN Sites ON Artifacts.SiteID = Sites.SiteID
+    ```
+2. **Join Artifacts with Stratigraphy**:
+    ```sql
+    SELECT Artifacts.ArtifactID, Artifacts.ArtifactType, Stratigraphy.Layer, Stratigraphy.Description
+    FROM Artifacts
+    INNER JOIN Stratigraphy ON Artifacts.StratigraphyID = Stratigraphy.StratigraphyID
+    ```
+
 
 ## Database Tools for Archaeology
 
